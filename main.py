@@ -1,13 +1,27 @@
 from telethon import events
 from config import bot, bot_username, database_channel, links_database, owner_id
 from telethon import Button
-from mongo import ChannelsDB
+from mongo import ChannelsDB, UsersDB
 
 ChannelsDB = ChannelsDB()
+UsersDB = UsersDB()
+
+
+@bot.on(events.NewMessage(pattern="/broadcast", chats=owner_id))
+async def _(event):
+    msg = await event.get_reply_message()
+    users = UsersDB.full()
+    for i in users:
+        await bot.send_message(i['_id'], msg)
 
 
 @bot.on(events.NewMessage(pattern="/start"))
 async def _(event):
+    try:
+        UsersDB.add({"_id": event.chat_id})
+    except Exception as e:
+        print(e)
+
     if event.raw_text == "/start":
         await event.reply(
             "This bot is to get links of anime files.",

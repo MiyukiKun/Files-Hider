@@ -9,7 +9,6 @@ db_url = os.environ.get('MONGO_DB_URL')
 database_channel = int(os.environ.get('DATABASE_CHANNEL'))
 bot_username = os.environ.get('BOT_USERNAME')
 owner_id = int(os.environ.get('OWNER_ID'))
-feedback_group_id = int(os.environ.get('FEEDBACK_GROUP_ID'))
 links_database = int(os.environ.get('LINKS_DUMP_CHANNEL'))
 
 
