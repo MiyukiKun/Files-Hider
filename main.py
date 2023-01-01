@@ -12,8 +12,10 @@ async def _(event):
     msg = await event.get_reply_message()
     users = UsersDB.full()
     for i in users:
-        await bot.send_message(i['_id'], msg)
-
+        try:
+            await bot.send_message(i['_id'], msg)
+        except Exception as e:
+            print(e)
 
 @bot.on(events.NewMessage(pattern="/start"))
 async def _(event):
