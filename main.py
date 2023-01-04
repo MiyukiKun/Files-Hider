@@ -71,7 +71,7 @@ async def _(event):
         await event.reply("Main channel - @Od3ns_Community")
 
     elif event.raw_text == "Ongoing Anime":
-        await event.reply("Ongoing Anime - @Ongoing_Anime_sub_dub")
+        await event.reply("Ongoing Anime - @Od3ns_Ongoing_Anime")
 
 
 @bot.on(events.NewMessage(chats=database_channel))
