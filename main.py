@@ -2,7 +2,7 @@ from telethon import events
 from config import bot, bot_username, database_channel, links_database, owner_id
 from telethon import Button
 from mongo import ChannelsDB, UsersDB
-import time
+import asyncio
 
 ChannelsDB = ChannelsDB()
 UsersDB = UsersDB()
@@ -15,7 +15,7 @@ async def _(event):
     for i in users:
         try:
             await bot.send_message(i['_id'], msg)
-            time.sleep(1)
+            await asyncio.sleep(1)
         except Exception as e:
             print(e)
 
@@ -59,7 +59,7 @@ async def _(event):
                 files_msg = await bot.get_messages(database_channel, ids=ids) 
                 for i in files_msg:
                     await bot.send_message(event.chat_id, i)
-                    time.sleep(1)
+                    await asyncio.sleep(1)
             except:
                 await bot.send_message(event.chat_id, "No file with such id found")
 
