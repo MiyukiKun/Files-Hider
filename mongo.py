@@ -1,5 +1,5 @@
 from pymongo.collection import Collection
-from config import client
+from config import client, database_name
 
 class ChannelsDB:
     def __init__(self):
@@ -22,7 +22,7 @@ class ChannelsDB:
 
 class UsersDB:
     def __init__(self):
-        self.files_col = Collection(client['Bot'], 'UsersDB')
+        self.files_col = Collection(client['Bot'], database_name)
         
     def find(self, data):
         return self.files_col.find_one(data)

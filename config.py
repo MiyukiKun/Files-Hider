@@ -10,7 +10,7 @@ database_channel = int(os.environ.get('DATABASE_CHANNEL'))
 bot_username = os.environ.get('BOT_USERNAME')
 owner_id = int(os.environ.get('OWNER_ID'))
 links_database = int(os.environ.get('LINKS_DUMP_CHANNEL'))
-
+database_name = os.environ.get('DATABASE_NAME')
 
 client = MongoClient(db_url, tls=True)
 

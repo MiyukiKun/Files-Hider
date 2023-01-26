@@ -3,6 +3,7 @@ from config import bot, bot_username, database_channel, links_database, owner_id
 from telethon import Button
 from mongo import ChannelsDB, UsersDB
 import asyncio
+import json
 
 ChannelsDB = ChannelsDB()
 UsersDB = UsersDB()
@@ -15,14 +16,15 @@ async def _(event):
     for i in users:
         try:
             await bot.send_message(i['_id'], msg)
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.25)
         except Exception as e:
             print(e)
+
 
 @bot.on(events.NewMessage(pattern="/start"))
 async def _(event):
     try:
-        UsersDB.add({"_id": event.chat_id})
+        UsersDB.add({"_id": event.chat_id, "username": event.sender.username, "name": f"{event.sender.first_name} {event.sender.last_name}"})
     except Exception as e:
         print(e)
 
@@ -62,6 +64,14 @@ async def _(event):
                     await asyncio.sleep(1)
             except:
                 await bot.send_message(event.chat_id, "No file with such id found")
+
+
+@bot.on(events.NewMessage(pattern="/stats"))
+async def _(event):
+    userdata = await UsersDB.full()
+    with open("userdata.json", "w") as final:
+        json.dump(userdata, final)
+    await event.reply(f"Statistics for bot:\n Total number of users: {len(userdata)}", file="userdata.json")
 
 
 @bot.on(events.NewMessage(func=lambda e: e.is_private))
