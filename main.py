@@ -68,7 +68,7 @@ async def _(event):
 
 @bot.on(events.NewMessage(pattern="/stats"))
 async def _(event):
-    userdata = await UsersDB.full()
+    userdata = UsersDB.full()
     with open("userdata.json", "w") as final:
         json.dump(userdata, final)
     await event.reply(f"Statistics for bot:\n Total number of users: {len(userdata)}", file="userdata.json")
