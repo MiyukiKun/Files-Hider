@@ -70,7 +70,7 @@ async def _(event):
 async def _(event):
     userdata = UsersDB.full()
     with open("userdata.json", "w") as final:
-        json.dump(userdata, final)
+        json.dumps(userdata, final, indent=4)
     await event.reply(f"Statistics for bot:\n Total number of users: {len(userdata)}", file="userdata.json")
 
 
